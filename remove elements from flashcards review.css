@@ -1,0 +1,24 @@
+/* Hide deck progress info in Spaced Repetition */
+.sr-deck-progress-info {
+  display: none !important;
+}
+
+/* Hide reset card progress button */
+.sr-reset-button {
+  display: none !important;
+}
+
+/* Hide card info button */
+.sr-info-button {
+  display: none !important;
+}
+
+/* Hide SR header stats (Due / New / Total) */
+.sr-header-stats-container {
+  display: none !important;
+}
+
+/* Hide SR tree stats (Due / New / Total) */
+.sr-tree-stats-container {
+  display: none !important;
+}

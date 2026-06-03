@@ -1,0 +1,16 @@
+/* Style SR flashcard close button to match back arrow */
+#sr-modal .modal-close-button {
+    background: none !important;
+    box-shadow: none !important;
+    width: 24px !important;
+    height: 24px !important;
+    top: 13px !important;
+    right: 12px !important;
+    color: #aca49c !important;
+}
+
+#sr-modal .modal-close-button svg {
+    width: 22px !important;
+    height: 22px !important;
+    stroke: #aca49c !important;
+}

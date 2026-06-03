@@ -1,0 +1,30 @@
+.sr-response {
+  margin-bottom: 200px !important;
+}
+
+.sr-scroll-wrapper {
+  height: 100%;
+}
+
+.sr-content {
+  height: 100%;
+  position: relative;
+}
+
+.sr-content p:first-of-type {
+  position: absolute;
+  top: 22%;
+  left: 0; right: 0;
+  transform: translateY(-50%);
+}
+
+.sr-content hr {
+  display: none;
+}
+
+.sr-content hr ~ p {
+  position: absolute;
+  top: 59%;
+  left: 0; right: 0;
+  transform: translateY(-50%);
+}
