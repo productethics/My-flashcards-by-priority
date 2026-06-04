@@ -4,8 +4,8 @@ export const SCHEDULING_INFO_REGEX =
     /^---\r?\n((?:.*\r?\n)*)sr-due: (.+)\r?\nsr-interval: (\d+)\r?\nsr-ease: (\d+)\r?\n((?:.*\r?\n)?)---/;
 export const YAML_FRONT_MATTER_REGEX = /^---\r?\n((?:.*\r?\n)*?)---/;
 
-export const MULTI_SCHEDULING_EXTRACTOR = /!([\d-]+),(\d+),(\d+)/gm;
-export const LEGACY_SCHEDULING_EXTRACTOR = /<!--FbP:([\d-]+),(\d+),(\d+)-->/gm;
+export const MULTI_SCHEDULING_EXTRACTOR = /!([\d-]+),([\d.]+)/gm;
+export const LEGACY_SCHEDULING_EXTRACTOR = /<!--FbP:([\d-]+),([\d.]+)-->/gm;
 export const OBSIDIAN_TAG_AT_STARTOFLINE_REGEX = /^#[^\s#]+/gi;
 
 // https://help.obsidian.md/Linking+notes+and+files/Internal+links#Link+to+a+block+in+a+note

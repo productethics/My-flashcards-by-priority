@@ -32,8 +32,7 @@ export class StoreInNotes implements IDataStore {
         for (let i = 0; i < scheduling.length; i++) {
             const match: RegExpMatchArray = scheduling[i];
             const dueDateStr = match[1];
-            const interval = parseInt(match[2]);
-            const ease = parseInt(match[3]);
+            const ease = parseFloat(match[2]);
             const dueDate: Moment = DateUtil.dateStrToMoment(dueDateStr);
             let info: RepItemScheduleInfo;
             if (
@@ -45,7 +44,7 @@ export class StoreInNotes implements IDataStore {
                 const delayBeforeReviewTicks: number =
                     dueDate.valueOf() - globalDateProvider.today.valueOf();
 
-                info = new RepItemScheduleInfoOsr(dueDate, interval, ease, delayBeforeReviewTicks);
+                info = new RepItemScheduleInfoOsr(dueDate, 1, ease, delayBeforeReviewTicks);
             }
             result.push(info);
         }
