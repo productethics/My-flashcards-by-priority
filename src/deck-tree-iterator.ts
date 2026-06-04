@@ -42,7 +42,7 @@ export interface IDeckTreeIterator {
 }
 
 function getCardPriority(card: Card, today: Moment): number {
-    if (!card.hasSchedule) return Infinity;
+    if (!card.hasSchedule) return 0;
     const schedInfo = card.scheduleInfo as RepItemScheduleInfoOsr;
     const ease = schedInfo.latestEase;
     const daysSince = Math.max(1, today.diff(schedInfo.dueDate, "days"));
