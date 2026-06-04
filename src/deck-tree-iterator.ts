@@ -3,6 +3,9 @@ import { CardListType, Deck } from "src/deck";
 import { Question } from "src/question";
 import { TopicPath } from "src/topic-path";
 import { globalRandomNumberProvider, WeightedRandomNumber } from "src/utils/numbers";
+import { Moment } from "moment";
+import { RepItemScheduleInfoOsr } from "src/algorithms/osr/rep-item-schedule-info-osr";
+import { globalDateProvider } from "src/utils/dates";
 
 export enum CardOrder {
     NewFirstSequential,
@@ -10,6 +13,7 @@ export enum CardOrder {
     DueFirstSequential,
     DueFirstRandom,
     EveryCardRandomDeckAndCard,
+    PriorityOrder,
 }
 export enum DeckOrder {
     PrevDeckComplete_Sequential,
@@ -35,6 +39,21 @@ export interface IDeckTreeIterator {
     deleteCurrentQuestionFromAllDecks(): boolean;
     moveCurrentCardToEndOfList(): void;
     nextCard(): boolean;
+}
+
+function getCardPriority(card: Card, today: Moment): number {
+    if (!card.hasSchedule) return Infinity;
+    const schedInfo = card.scheduleInfo as RepItemScheduleInfoOsr;
+    const ease = schedInfo.latestEase;
+    const daysSince = Math.max(1, today.diff(schedInfo.dueDate, "days"));
+    return ease / daysSince;
+}
+
+function sortDeckByPriority(deck: Deck): void {
+    const today = globalDateProvider.today;
+    const sortFn = (a: Card, b: Card) => getCardPriority(a, today) - getCardPriority(b, today);
+    deck.newFlashcards.sort(sortFn);
+    deck.dueFlashcards.sort(sortFn);
 }
 
 class SingleDeckIterator {
@@ -164,6 +183,10 @@ class SingleDeckIterator {
         this.cardIdx = null;
     }
 
+    setCardByType(cardListType: CardListType, cardIdx: number): void {
+        this.setCardListType(cardListType, cardIdx);
+    }
+
     ensureCurrentCard() {
         if (this.cardIdx == null || this.cardListType == null) throw "no current card";
     }
@@ -249,6 +272,11 @@ export class DeckTreeIterator implements IDeckTreeIterator {
     setIteratorTopicPath(topicPath: TopicPath): void {
         const iteratorDeck: Deck = this.baseDeckTree.getDeck(topicPath);
         this.deckArray = DeckTreeIterator.filterForDecksWithCards(iteratorDeck.toDeckArray());
+        if (this.iteratorOrder.cardOrder === CardOrder.PriorityOrder) {
+            for (const deck of this.deckArray) {
+                sortDeckByPriority(deck);
+            }
+        }
         this.setDeckIdx(null);
     }
 
@@ -279,6 +307,8 @@ export class DeckTreeIterator implements IDeckTreeIterator {
 
         if (this.iteratorOrder.cardOrder == CardOrder.EveryCardRandomDeckAndCard) {
             result = this.nextCardEveryCardRandomDeck();
+        } else if (this.iteratorOrder.cardOrder == CardOrder.PriorityOrder) {
+            result = this.nextCardGlobalPriority();
         } else {
             // If we are just starting, then depending on settings we want to either start from the first deck,
             // or a random deck
@@ -327,6 +357,30 @@ export class DeckTreeIterator implements IDeckTreeIterator {
         if (this.deckIdx < this.deckArray.length) {
             this.singleDeckIterator.setDeck(this.deckArray[this.deckIdx]);
         }
+    }
+
+    private nextCardGlobalPriority(): boolean {
+        const today = globalDateProvider.today;
+        let bestDeckIdx = -1;
+        let bestCardListType: CardListType = null;
+        let bestPriority = Infinity;
+
+        for (let i = 0; i < this.deckArray.length; i++) {
+            const deck = this.deckArray[i];
+            if (deck.newFlashcards.length > 0) {
+                const p = getCardPriority(deck.newFlashcards[0], today);
+                if (p < bestPriority) { bestPriority = p; bestDeckIdx = i; bestCardListType = CardListType.NewCard; }
+            }
+            if (deck.dueFlashcards.length > 0) {
+                const p = getCardPriority(deck.dueFlashcards[0], today);
+                if (p < bestPriority) { bestPriority = p; bestDeckIdx = i; bestCardListType = CardListType.DueCard; }
+            }
+        }
+
+        if (bestDeckIdx === -1) return false;
+        this.setDeckIdx(bestDeckIdx);
+        this.singleDeckIterator.setCardByType(bestCardListType, 0);
+        return true;
     }
 
     private nextCardEveryCardRandomDeck(): boolean {

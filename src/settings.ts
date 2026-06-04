@@ -71,7 +71,7 @@ export const DEFAULT_SETTINGS: SRSettings = {
     convertFoldersToDecks: false,
     burySiblingCards: false,
     randomizeCardOrder: null,
-    flashcardCardOrder: "DueFirstRandom",
+    flashcardCardOrder: "PriorityOrder",
     flashcardDeckOrder: "PrevDeckComplete_Sequential",
     convertHighlightsToClozes: true,
     convertBoldTextToClozes: false,
