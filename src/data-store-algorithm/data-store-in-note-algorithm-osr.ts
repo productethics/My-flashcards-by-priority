@@ -15,7 +15,7 @@ import { IDataStoreAlgorithm } from "src/data-store-algorithm/idata-store-algori
 import { ISRFile } from "src/file";
 import { Question } from "src/question";
 import { SRSettings } from "src/settings";
-import { formatDateYYYYMMDD } from "src/utils/dates";
+import { formatDateYYYYMMDD, globalDateProvider } from "src/utils/dates";
 
 // Algorithm: The original OSR algorithm
 //      (RZ: Perhaps not the original algorithm, but the only one available in 2023/early 2024)
@@ -93,14 +93,12 @@ export class DataStoreInNoteAlgorithmOsr implements IDataStoreAlgorithm {
 
     formatCardSchedule(card: Card) {
         let result: string;
+        const todayStr = formatDateYYYYMMDD(globalDateProvider.today);
         if (card.hasSchedule) {
             const schedule = card.scheduleInfo as RepItemScheduleInfoOsr;
-            const dateStr = schedule.dueDate
-                ? formatDateYYYYMMDD(schedule.dueDate)
-                : RepItemScheduleInfoOsr.dummyDueDateForNewCard;
-            result = `!${dateStr},${schedule.interval},${schedule.latestEase}`;
+            result = `!${todayStr},${schedule.interval},${schedule.latestEase}`;
         } else {
-            result = `!${RepItemScheduleInfoOsr.dummyDueDateForNewCard},${RepItemScheduleInfoOsr.initialInterval},${this.settings.baseEase}`;
+            result = `!${todayStr},${RepItemScheduleInfoOsr.initialInterval},${this.settings.baseEase}`;
         }
         return result;
     }
