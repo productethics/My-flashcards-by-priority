@@ -142,59 +142,7 @@ export class SRSettingTab extends PluginSettingTab {
                     }),
             );
 
-        new Setting(containerEl)
-            .setName(t("REVIEW_CARD_ORDER_WITHIN_DECK"))
-            .addDropdown((dropdown) =>
-                dropdown
-                    .addOptions({
-                        NewFirstSequential: t("REVIEW_CARD_ORDER_NEW_FIRST_SEQUENTIAL"),
-                        DueFirstSequential: t("REVIEW_CARD_ORDER_DUE_FIRST_SEQUENTIAL"),
-                        NewFirstRandom: t("REVIEW_CARD_ORDER_NEW_FIRST_RANDOM"),
-                        DueFirstRandom: t("REVIEW_CARD_ORDER_DUE_FIRST_RANDOM"),
-                        EveryCardRandomDeckAndCard: t("REVIEW_CARD_ORDER_RANDOM_DECK_AND_CARD"),
-                    })
-                    .setValue(this.plugin.data.settings.flashcardCardOrder)
-                    .onChange(async (value) => {
-                        this.plugin.data.settings.flashcardCardOrder = value;
-                        await this.plugin.savePluginData();
 
-                        this.display();
-                    }),
-            );
-
-        const deckOrderEnabled: boolean =
-            this.plugin.data.settings.flashcardCardOrder != "EveryCardRandomDeckAndCard";
-        new Setting(containerEl).setName(t("REVIEW_DECK_ORDER")).addDropdown((dropdown) =>
-            dropdown
-                .addOptions(
-                    deckOrderEnabled
-                        ? {
-                              // eslint-disable-next-line camelcase
-                              PrevDeckComplete_Sequential: t(
-                                  "REVIEW_DECK_ORDER_PREV_DECK_COMPLETE_SEQUENTIAL",
-                              ),
-                              // eslint-disable-next-line camelcase
-                              PrevDeckComplete_Random: t(
-                                  "REVIEW_DECK_ORDER_PREV_DECK_COMPLETE_RANDOM",
-                              ),
-                          }
-                        : {
-                              EveryCardRandomDeckAndCard: t(
-                                  "REVIEW_DECK_ORDER_RANDOM_DECK_AND_CARD",
-                              ),
-                          },
-                )
-                .setValue(
-                    deckOrderEnabled
-                        ? this.plugin.data.settings.flashcardDeckOrder
-                        : "EveryCardRandomDeckAndCard",
-                )
-                .setDisabled(!deckOrderEnabled)
-                .onChange(async (value) => {
-                    this.plugin.data.settings.flashcardDeckOrder = value;
-                    await this.plugin.savePluginData();
-                }),
-        );
 
         containerEl.createEl("h3", { text: t("GROUP_FLASHCARD_SEPARATORS") });
         const convertHighlightsToClozesEl = new Setting(containerEl).setName(
