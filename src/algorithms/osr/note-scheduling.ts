@@ -20,13 +20,14 @@ export function osrSchedule(
     let interval: number = originalInterval;
 
     if (response === ReviewResponse.Easy) {
-        ease += 20;
+        ease = Math.round(ease * 1.5 * 1000) / 1000;
         interval = ((interval + delayedBeforeReviewDays) * ease) / 100;
         interval *= settings.easyBonus;
     } else if (response === ReviewResponse.Good) {
+        ease = Math.round(ease * 1.05 * 1000) / 1000;
         interval = ((interval + delayedBeforeReviewDays / 2) * ease) / 100;
     } else if (response === ReviewResponse.Hard) {
-        ease = Math.max(130, ease - 20);
+        ease = Math.round(ease * 0.7 * 1000) / 1000;
         interval = Math.max(
             1,
             (interval + delayedBeforeReviewDays / 4) * settings.lapsesIntervalChange,
