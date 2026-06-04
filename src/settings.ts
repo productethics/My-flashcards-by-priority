@@ -109,7 +109,7 @@ export const DEFAULT_SETTINGS: SRSettings = {
 
     // algorithm
     algorithm: Algorithm.SM_2_OSR,
-    baseEase: 250,
+    baseEase: 1,
     lapsesIntervalChange: 0.5,
     easyBonus: 1.3,
     loadBalance: true,
