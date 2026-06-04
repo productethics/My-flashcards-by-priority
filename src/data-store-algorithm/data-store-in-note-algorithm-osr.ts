@@ -96,9 +96,9 @@ export class DataStoreInNoteAlgorithmOsr implements IDataStoreAlgorithm {
         const todayStr = formatDateYYYYMMDD(globalDateProvider.today);
         if (card.hasSchedule) {
             const schedule = card.scheduleInfo as RepItemScheduleInfoOsr;
-            result = `!${todayStr},${schedule.interval},${schedule.latestEase}`;
+            result = `!${todayStr},${schedule.latestEase}`;
         } else {
-            result = `!${todayStr},${RepItemScheduleInfoOsr.initialInterval},${this.settings.baseEase}`;
+            result = `!${todayStr},${this.settings.baseEase}`;
         }
         return result;
     }
