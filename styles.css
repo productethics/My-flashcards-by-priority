@@ -995,3 +995,74 @@ th.gridjs-th:last-child {
     background-color: #9bc2f7;
     cursor: ew-resize;
 }
+#sr-modal { background-color: #000000 !important; }
+.sr-response {
+  margin-bottom: 200px !important;
+}
+
+.sr-scroll-wrapper {
+  height: 100%;
+}
+
+.sr-content {
+  height: 100%;
+  position: relative;
+}
+
+.sr-content p:first-of-type {
+  position: absolute;
+  top: 22%;
+  left: 0; right: 0;
+  transform: translateY(-50%);
+}
+
+.sr-content hr {
+  display: none;
+}
+
+.sr-content hr ~ p {
+  position: absolute;
+  top: 59%;
+  left: 0; right: 0;
+  transform: translateY(-50%);
+}
+/* Style SR flashcard close button to match back arrow */
+#sr-modal .modal-close-button {
+    background: none !important;
+    box-shadow: none !important;
+    width: 24px !important;
+    height: 24px !important;
+    top: 13px !important;
+    right: 12px !important;
+    color: #aca49c !important;
+}
+
+#sr-modal .modal-close-button svg {
+    width: 22px !important;
+    height: 22px !important;
+    stroke: #aca49c !important;
+}
+/* Hide deck progress info in Spaced Repetition */
+.sr-deck-progress-info {
+  display: none !important;
+}
+
+/* Hide reset card progress button */
+.sr-reset-button {
+  display: none !important;
+}
+
+/* Hide card info button */
+.sr-info-button {
+  display: none !important;
+}
+
+/* Hide SR header stats (Due / New / Total) */
+.sr-header-stats-container {
+  display: none !important;
+}
+
+/* Hide SR tree stats (Due / New / Total) */
+.sr-tree-stats-container {
+  display: none !important;
+}

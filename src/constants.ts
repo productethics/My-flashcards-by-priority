@@ -5,7 +5,7 @@ export const SCHEDULING_INFO_REGEX =
 export const YAML_FRONT_MATTER_REGEX = /^---\r?\n((?:.*\r?\n)*?)---/;
 
 export const MULTI_SCHEDULING_EXTRACTOR = /!([\d-]+),(\d+),(\d+)/gm;
-export const LEGACY_SCHEDULING_EXTRACTOR = /<!--SR:([\d-]+),(\d+),(\d+)-->/gm;
+export const LEGACY_SCHEDULING_EXTRACTOR = /<!--FbP:([\d-]+),(\d+),(\d+)-->/gm;
 export const OBSIDIAN_TAG_AT_STARTOFLINE_REGEX = /^#[^\s#]+/gi;
 
 // https://help.obsidian.md/Linking+notes+and+files/Internal+links#Link+to+a+block+in+a+note
@@ -39,7 +39,7 @@ export const COLLAPSE_ICON =
 
 export const TICKS_PER_DAY = 24 * 3600 * 1000;
 
-export const SR_HTML_COMMENT_BEGIN = "<!--SR:";
+export const SR_HTML_COMMENT_BEGIN = "<!--FbP:";
 export const SR_HTML_COMMENT_END = "-->";
 
 export const SR_TAB_VIEW = "spaced-repetition-tab-view";

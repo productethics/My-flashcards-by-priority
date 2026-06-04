@@ -53,7 +53,7 @@ export class StoreInNotes implements IDataStore {
     }
 
     questionRemoveScheduleInfo(questionText: string): string {
-        return questionText.replace(/<!--SR:.+-->/gm, "");
+        return questionText.replace(/<!--FbP:.+-->/gm, "");
     }
 
     async questionWriteSchedule(question: Question): Promise<void> {

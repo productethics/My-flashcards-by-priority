@@ -104,7 +104,7 @@ export function parse(text: string, options: ParserOptions): ParsedQuestionInfo[
             currentTrimmed = lines[i].trim();
 
         // Skip everything in HTML comments
-        if (currentLine.startsWith("<!--") && !currentLine.startsWith("<!--SR:")) {
+        if (currentLine.startsWith("<!--") && !currentLine.startsWith("<!--FbP:")) {
             while (i + 1 < lines.length && !currentLine.includes("-->")) i++;
             i++;
             continue;
@@ -156,7 +156,7 @@ export function parse(text: string, options: ParserOptions): ParsedQuestionInfo[
             firstLineNo = i;
 
             // Pick up scheduling information if present
-            if (i + 1 < lines.length && lines[i + 1].startsWith("<!--SR:")) {
+            if (i + 1 < lines.length && lines[i + 1].startsWith("<!--FbP:")) {
                 cardText += "\n" + lines[i + 1];
                 i++;
             }
