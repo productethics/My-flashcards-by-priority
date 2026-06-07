@@ -51,7 +51,7 @@ function getCardPriority(card: Card, today: Moment): number {
 
 function sortDeckByPriority(deck: Deck): void {
     const today = globalDateProvider.today;
-    const sortFn = (a: Card, b: Card) => getCardPriority(a, today) - getCardPriority(b, today);
+    const sortFn = (a: Card, b: Card) => { const diff = getCardPriority(a, today) - getCardPriority(b, today); return diff || Math.random() - 0.5; };
     deck.newFlashcards.sort(sortFn);
     deck.dueFlashcards.sort(sortFn);
 }
