@@ -361,25 +361,37 @@ export class DeckTreeIterator implements IDeckTreeIterator {
 
     private nextCardGlobalPriority(): boolean {
         const today = globalDateProvider.today;
-        let bestDeckIdx = -1;
-        let bestCardListType: CardListType = null;
-        let bestPriority = Infinity;
 
+        // Gather every new/due card across all decks, with its location
+        const allCards: Array<{ deckIdx: number; cardListType: CardListType; cardIdx: number; priority: number }> = [];
         for (let i = 0; i < this.deckArray.length; i++) {
             const deck = this.deckArray[i];
-            if (deck.newFlashcards.length > 0) {
-                const p = getCardPriority(deck.newFlashcards[0], today);
-                if (p < bestPriority) { bestPriority = p; bestDeckIdx = i; bestCardListType = CardListType.NewCard; }
+            for (let j = 0; j < deck.newFlashcards.length; j++) {
+                allCards.push({
+                    deckIdx: i,
+                    cardListType: CardListType.NewCard,
+                    cardIdx: j,
+                    priority: getCardPriority(deck.newFlashcards[j], today),
+                });
             }
-            if (deck.dueFlashcards.length > 0) {
-                const p = getCardPriority(deck.dueFlashcards[0], today);
-                if (p < bestPriority) { bestPriority = p; bestDeckIdx = i; bestCardListType = CardListType.DueCard; }
+            for (let j = 0; j < deck.dueFlashcards.length; j++) {
+                allCards.push({
+                    deckIdx: i,
+                    cardListType: CardListType.DueCard,
+                    cardIdx: j,
+                    priority: getCardPriority(deck.dueFlashcards[j], today),
+                });
             }
         }
 
-        if (bestDeckIdx === -1) return false;
-        this.setDeckIdx(bestDeckIdx);
-        this.singleDeckIterator.setCardByType(bestCardListType, 0);
+        if (allCards.length === 0) return false;
+
+        const bestPriority = Math.min(...allCards.map((c) => c.priority));
+        const candidates = allCards.filter((c) => c.priority === bestPriority);
+
+        const choice = candidates[Math.floor(Math.random() * candidates.length)];
+        this.setDeckIdx(choice.deckIdx);
+        this.singleDeckIterator.setCardByType(choice.cardListType, choice.cardIdx);
         return true;
     }
 
