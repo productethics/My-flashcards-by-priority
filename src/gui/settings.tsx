@@ -809,6 +809,7 @@ export class SRSettingTab extends PluginSettingTab {
             .addText((text) =>
                 text
                     .setValue(this.plugin.data.settings.hardEaseMultiplier.toString())
+                    .setDisabled(this.plugin.data.settings.linkHardToEasyReciprocal)
                     .onChange((value) => {
                         applySettingsUpdate(async () => {
                             const numValue: number = Number.parseFloat(value);
@@ -833,6 +834,28 @@ export class SRSettingTab extends PluginSettingTab {
                         this.display();
                     });
             });
+
+        new Setting(containerEl)
+            .setName("Link hard multiplier to easy multiplier")
+            .setDesc(
+                "When enabled, the hard ease multiplier is always set to 1 \u00f7 (easy ease multiplier), and updates automatically if the easy multiplier changes",
+            )
+            .addToggle((toggle) =>
+                toggle
+                    .setValue(this.plugin.data.settings.linkHardToEasyReciprocal)
+                    .onChange(async (value) => {
+                        this.plugin.data.settings.linkHardToEasyReciprocal = value;
+                        if (value) {
+                            this.plugin.data.settings.hardEaseMultiplier =
+                                Math.round(
+                                    (1 / this.plugin.data.settings.easyEaseMultiplier) * 1000,
+                                ) / 1000;
+                        }
+                        await this.plugin.savePluginData();
+
+                        this.display();
+                    }),
+            );
 
         new Setting(containerEl)
             .setName("Good ease multiplier")
@@ -876,7 +899,12 @@ export class SRSettingTab extends PluginSettingTab {
                             const numValue: number = Number.parseFloat(value);
                             if (!isNaN(numValue)) {
                                 this.plugin.data.settings.easyEaseMultiplier = numValue;
+                                if (this.plugin.data.settings.linkHardToEasyReciprocal) {
+                                    this.plugin.data.settings.hardEaseMultiplier =
+                                        Math.round((1 / numValue) * 1000) / 1000;
+                                }
                                 await this.plugin.savePluginData();
+                                this.display();
                             } else {
                                 new Notice(t("VALID_NUMBER_WARNING"));
                             }

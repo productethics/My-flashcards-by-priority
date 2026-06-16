@@ -51,6 +51,7 @@ export interface SRSettings {
     algorithm: string;
     baseEase: number;
     hardEaseMultiplier: number;
+    linkHardToEasyReciprocal: boolean;
     goodEaseMultiplier: number;
     easyEaseMultiplier: number;
     lapsesIntervalChange: number;
@@ -114,6 +115,7 @@ export const DEFAULT_SETTINGS: SRSettings = {
     algorithm: Algorithm.SM_2_OSR,
     baseEase: 1,
     hardEaseMultiplier: 0.7,
+    linkHardToEasyReciprocal: false,
     goodEaseMultiplier: 1.05,
     easyEaseMultiplier: 1.5,
     lapsesIntervalChange: 0.5,
