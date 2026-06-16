@@ -27,7 +27,10 @@ export function osrSchedule(
         ease = Math.max(0.001, Math.round(ease * settings.goodEaseMultiplier * 1000) / 1000);
         interval = ((interval + delayedBeforeReviewDays / 2) * ease) / 100;
     } else if (response === ReviewResponse.Hard) {
-        ease = Math.max(0.001, Math.round(ease * settings.hardEaseMultiplier * 1000) / 1000);
+        const hardMultiplier = settings.linkHardToEasyReciprocal
+            ? 1 / settings.easyEaseMultiplier
+            : settings.hardEaseMultiplier;
+        ease = Math.max(0.001, Math.round(ease * hardMultiplier * 1000) / 1000);
         interval = Math.max(
             1,
             (interval + delayedBeforeReviewDays / 4) * settings.lapsesIntervalChange,
