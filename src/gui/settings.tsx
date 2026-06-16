@@ -824,6 +824,99 @@ export class SRSettingTab extends PluginSettingTab {
             });
 
         new Setting(containerEl)
+            .setName("Hard ease multiplier")
+            .setDesc("Ease is multiplied by this value when a card is reviewed as Hard")
+            .addText((text) =>
+                text
+                    .setValue(this.plugin.data.settings.hardEaseMultiplier.toString())
+                    .onChange((value) => {
+                        applySettingsUpdate(async () => {
+                            const numValue: number = Number.parseFloat(value);
+                            if (!isNaN(numValue)) {
+                                this.plugin.data.settings.hardEaseMultiplier = numValue;
+                                await this.plugin.savePluginData();
+                            } else {
+                                new Notice(t("VALID_NUMBER_WARNING"));
+                            }
+                        });
+                    }),
+            )
+            .addExtraButton((button) => {
+                button
+                    .setIcon("reset")
+                    .setTooltip(t("RESET_DEFAULT"))
+                    .onClick(async () => {
+                        this.plugin.data.settings.hardEaseMultiplier =
+                            DEFAULT_SETTINGS.hardEaseMultiplier;
+                        await this.plugin.savePluginData();
+
+                        this.display();
+                    });
+            });
+
+        new Setting(containerEl)
+            .setName("Good ease multiplier")
+            .setDesc("Ease is multiplied by this value when a card is reviewed as Good")
+            .addText((text) =>
+                text
+                    .setValue(this.plugin.data.settings.goodEaseMultiplier.toString())
+                    .onChange((value) => {
+                        applySettingsUpdate(async () => {
+                            const numValue: number = Number.parseFloat(value);
+                            if (!isNaN(numValue)) {
+                                this.plugin.data.settings.goodEaseMultiplier = numValue;
+                                await this.plugin.savePluginData();
+                            } else {
+                                new Notice(t("VALID_NUMBER_WARNING"));
+                            }
+                        });
+                    }),
+            )
+            .addExtraButton((button) => {
+                button
+                    .setIcon("reset")
+                    .setTooltip(t("RESET_DEFAULT"))
+                    .onClick(async () => {
+                        this.plugin.data.settings.goodEaseMultiplier =
+                            DEFAULT_SETTINGS.goodEaseMultiplier;
+                        await this.plugin.savePluginData();
+
+                        this.display();
+                    });
+            });
+
+        new Setting(containerEl)
+            .setName("Easy ease multiplier")
+            .setDesc("Ease is multiplied by this value when a card is reviewed as Easy")
+            .addText((text) =>
+                text
+                    .setValue(this.plugin.data.settings.easyEaseMultiplier.toString())
+                    .onChange((value) => {
+                        applySettingsUpdate(async () => {
+                            const numValue: number = Number.parseFloat(value);
+                            if (!isNaN(numValue)) {
+                                this.plugin.data.settings.easyEaseMultiplier = numValue;
+                                await this.plugin.savePluginData();
+                            } else {
+                                new Notice(t("VALID_NUMBER_WARNING"));
+                            }
+                        });
+                    }),
+            )
+            .addExtraButton((button) => {
+                button
+                    .setIcon("reset")
+                    .setTooltip(t("RESET_DEFAULT"))
+                    .onClick(async () => {
+                        this.plugin.data.settings.easyEaseMultiplier =
+                            DEFAULT_SETTINGS.easyEaseMultiplier;
+                        await this.plugin.savePluginData();
+
+                        this.display();
+                    });
+            });
+
+        new Setting(containerEl)
             .setName(t("LAPSE_INTERVAL_CHANGE"))
             .setDesc(t("LAPSE_INTERVAL_CHANGE_DESC"))
             .addSlider((slider) =>

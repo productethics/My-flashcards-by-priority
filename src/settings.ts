@@ -50,6 +50,9 @@ export interface SRSettings {
     // algorithm
     algorithm: string;
     baseEase: number;
+    hardEaseMultiplier: number;
+    goodEaseMultiplier: number;
+    easyEaseMultiplier: number;
     lapsesIntervalChange: number;
     easyBonus: number;
     loadBalance: boolean;
@@ -110,6 +113,9 @@ export const DEFAULT_SETTINGS: SRSettings = {
     // algorithm
     algorithm: Algorithm.SM_2_OSR,
     baseEase: 1,
+    hardEaseMultiplier: 0.7,
+    goodEaseMultiplier: 1.05,
+    easyEaseMultiplier: 1.5,
     lapsesIntervalChange: 0.5,
     easyBonus: 1.3,
     loadBalance: true,
