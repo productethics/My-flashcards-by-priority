@@ -50,7 +50,7 @@ export class SRSettingTab extends PluginSettingTab {
                         this.tabNotes(containerElement),
                 },
                 "main-algorithm": {
-                    title: t("SCHEDULING"),
+                    title: "Review order",
                     icon: "calendar",
                     contentGenerator: (containerElement: HTMLElement) =>
                         this.tabScheduling(containerElement),
@@ -769,26 +769,6 @@ export class SRSettingTab extends PluginSettingTab {
     }
 
     private async tabScheduling(containerEl: HTMLElement): Promise<void> {
-        containerEl.createEl("h3", { text: t("ALGORITHM") });
-        const algoSettingEl = new Setting(containerEl).setName(t("ALGORITHM"));
-        algoSettingEl.descEl.insertAdjacentHTML(
-            "beforeend",
-            t("CHECK_ALGORITHM_WIKI", {
-                algoUrl: "https://www.stephenmwangi.com/obsidian-spaced-repetition/algorithms/",
-            }),
-        );
-        algoSettingEl.addDropdown((dropdown) =>
-            dropdown
-                .addOptions({
-                    "SM-2-OSR": t("SM2_OSR_VARIANT"),
-                })
-                .setValue(this.plugin.data.settings.algorithm)
-                .onChange(async (value) => {
-                    this.plugin.data.settings.algorithm = value;
-                    await this.plugin.savePluginData();
-                }),
-        );
-
         new Setting(containerEl)
             .setName(t("BASE_EASE"))
             .setDesc(t("BASE_EASE_DESC"))
