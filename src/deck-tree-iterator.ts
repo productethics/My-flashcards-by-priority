@@ -45,7 +45,8 @@ function getCardPriority(card: Card, today: Moment): number {
     if (!card.hasSchedule) return 0;
     const schedInfo = card.scheduleInfo as RepItemScheduleInfoOsr;
     const ease = schedInfo.latestEase;
-    const daysSince = Math.max(1, today.diff(schedInfo.dueDate, "days"));
+    const daysSince = today.diff(schedInfo.dueDate, "days");
+    if (daysSince <= 0) return Infinity;
     return ease / daysSince;
 }
 
@@ -384,10 +385,11 @@ export class DeckTreeIterator implements IDeckTreeIterator {
             }
         }
 
-        if (allCards.length === 0) return false;
+        const reviewableCards = allCards.filter((c) => c.priority < Infinity);
+        if (reviewableCards.length === 0) return false;
 
-        const bestPriority = Math.min(...allCards.map((c) => c.priority));
-        const candidates = allCards.filter((c) => c.priority === bestPriority);
+        const bestPriority = Math.min(...reviewableCards.map((c) => c.priority));
+        const candidates = reviewableCards.filter((c) => c.priority === bestPriority);
 
         const choice = candidates[Math.floor(Math.random() * candidates.length)];
         this.setDeckIdx(choice.deckIdx);
