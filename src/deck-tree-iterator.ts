@@ -14,6 +14,7 @@ export enum CardOrder {
     DueFirstRandom,
     EveryCardRandomDeckAndCard,
     PriorityOrder,
+    RandomUnknownOnly,
 }
 export enum DeckOrder {
     PrevDeckComplete_Sequential,
@@ -310,6 +311,8 @@ export class DeckTreeIterator implements IDeckTreeIterator {
             result = this.nextCardEveryCardRandomDeck();
         } else if (this.iteratorOrder.cardOrder == CardOrder.PriorityOrder) {
             result = this.nextCardGlobalPriority();
+        } else if (this.iteratorOrder.cardOrder == CardOrder.RandomUnknownOnly) {
+            result = this.nextCardRandomUnknownOnly();
         } else {
             // If we are just starting, then depending on settings we want to either start from the first deck,
             // or a random deck
@@ -392,6 +395,32 @@ export class DeckTreeIterator implements IDeckTreeIterator {
         const candidates = reviewableCards.filter((c) => c.priority === bestPriority);
 
         const choice = candidates[Math.floor(Math.random() * candidates.length)];
+        this.setDeckIdx(choice.deckIdx);
+        this.singleDeckIterator.setCardByType(choice.cardListType, choice.cardIdx);
+        return true;
+    }
+
+    private nextCardRandomUnknownOnly(): boolean {
+        const today = globalDateProvider.today;
+
+        const unknownCards: Array<{ deckIdx: number; cardListType: CardListType; cardIdx: number }> = [];
+        for (let i = 0; i < this.deckArray.length; i++) {
+            const deck = this.deckArray[i];
+            for (let j = 0; j < deck.newFlashcards.length; j++) {
+                unknownCards.push({ deckIdx: i, cardListType: CardListType.NewCard, cardIdx: j });
+            }
+            for (let j = 0; j < deck.dueFlashcards.length; j++) {
+                const card = deck.dueFlashcards[j];
+                const p = getCardPriority(card, today);
+                if (p < Infinity && p < 1) {
+                    unknownCards.push({ deckIdx: i, cardListType: CardListType.DueCard, cardIdx: j });
+                }
+            }
+        }
+
+        if (unknownCards.length === 0) return false;
+
+        const choice = unknownCards[Math.floor(Math.random() * unknownCards.length)];
         this.setDeckIdx(choice.deckIdx);
         this.singleDeckIterator.setCardByType(choice.cardListType, choice.cardIdx);
         return true;

@@ -770,6 +770,22 @@ export class SRSettingTab extends PluginSettingTab {
 
     private async tabScheduling(containerEl: HTMLElement): Promise<void> {
         new Setting(containerEl)
+            .setName("Review order")
+            .setDesc("How cards are selected during a review session")
+            .addDropdown((dropdown) =>
+                dropdown
+                    .addOptions({
+                        PriorityOrder: "Hardest first",
+                        RandomUnknownOnly: "Random (unknown cards only)",
+                    })
+                    .setValue(this.plugin.data.settings.flashcardCardOrder)
+                    .onChange(async (value) => {
+                        this.plugin.data.settings.flashcardCardOrder = value;
+                        await this.plugin.savePluginData();
+                    }),
+            );
+
+        new Setting(containerEl)
             .setName(t("BASE_EASE"))
             .setDesc(t("BASE_EASE_DESC"))
             .addText((text) =>
