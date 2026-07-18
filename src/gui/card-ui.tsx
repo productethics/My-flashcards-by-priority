@@ -142,6 +142,8 @@ export class CardUI {
             return;
         }
 
+        this.controls.removeClass("sr-is-hidden");
+        this.response.removeClass("sr-is-hidden");
         this.chosenDeck = chosenDeck;
         const deckStats = this.reviewSequencer.getDeckStats(chosenDeck.getTopicPath());
         this.totalCardsInSession = deckStats.cardsInQueueCount;
