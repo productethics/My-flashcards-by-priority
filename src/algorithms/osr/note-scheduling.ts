@@ -20,17 +20,17 @@ export function osrSchedule(
     let interval: number = originalInterval;
 
     if (response === ReviewResponse.Easy) {
-        ease = Math.max(0.001, Math.round(ease * settings.easyEaseMultiplier * 1000) / 1000);
+        ease = Math.max(settings.minimumEase, Math.round(ease * settings.easyEaseMultiplier * 1000) / 1000);
         interval = ((interval + delayedBeforeReviewDays) * ease) / 100;
         interval *= settings.easyBonus;
     } else if (response === ReviewResponse.Good) {
-        ease = Math.max(0.001, Math.round(ease * settings.goodEaseMultiplier * 1000) / 1000);
+        ease = Math.max(settings.minimumEase, Math.round(ease * settings.goodEaseMultiplier * 1000) / 1000);
         interval = ((interval + delayedBeforeReviewDays / 2) * ease) / 100;
     } else if (response === ReviewResponse.Hard) {
         const hardMultiplier = settings.linkHardToEasyReciprocal
             ? 1 / settings.easyEaseMultiplier
             : settings.hardEaseMultiplier;
-        ease = Math.max(0.001, Math.round(ease * hardMultiplier * 1000) / 1000);
+        ease = Math.max(settings.minimumEase, Math.round(ease * hardMultiplier * 1000) / 1000);
         interval = Math.max(
             1,
             (interval + delayedBeforeReviewDays / 4) * settings.lapsesIntervalChange,

@@ -814,6 +814,36 @@ export class SRSettingTab extends PluginSettingTab {
             });
 
         new Setting(containerEl)
+            .setName("Minimum ease")
+            .setDesc("Ease can never fall below this value, no matter how many times a card is reviewed as Hard")
+            .addText((text) =>
+                text
+                    .setValue(this.plugin.data.settings.minimumEase.toString())
+                    .onChange((value) => {
+                        applySettingsUpdate(async () => {
+                            const numValue: number = Number.parseFloat(value);
+                            if (!isNaN(numValue) && numValue > 0) {
+                                this.plugin.data.settings.minimumEase = numValue;
+                                await this.plugin.savePluginData();
+                            } else {
+                                new Notice(t("VALID_NUMBER_WARNING"));
+                            }
+                        });
+                    }),
+            )
+            .addExtraButton((button) => {
+                button
+                    .setIcon("reset")
+                    .setTooltip(t("RESET_DEFAULT"))
+                    .onClick(async () => {
+                        this.plugin.data.settings.minimumEase = DEFAULT_SETTINGS.minimumEase;
+                        await this.plugin.savePluginData();
+
+                        this.display();
+                    });
+            });
+
+        new Setting(containerEl)
             .setName("Link hard multiplier to easy multiplier")
             .setDesc(
                 "When enabled, the hard ease multiplier is always 1 \u00f7 (easy ease multiplier), calculated live wherever it is used \u2014 it stays correct even if something else changes the easy multiplier",
