@@ -249,6 +249,8 @@ export class CardUI {
         if (this._currentCard != null) {
             await this.refresh();
         } else if (this.settings.flashcardCardOrder === "RandomUnknownOnly") {
+            this.controls.addClass("sr-is-hidden");
+            this.response.addClass("sr-is-hidden");
             this.content.empty();
             const msg = this.content.createEl("div");
             msg.style.cssText = "text-align:center;padding:40px 20px;font-size:18px;opacity:0.7;";
