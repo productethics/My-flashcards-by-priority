@@ -791,14 +791,8 @@ export class SRSettingTab extends PluginSettingTab {
             .addText((text) =>
                 text.setValue(this.plugin.data.settings.baseEase.toString()).onChange((value) => {
                     applySettingsUpdate(async () => {
-                        const numValue: number = Number.parseInt(value);
+                        const numValue: number = Number.parseFloat(value);
                         if (!isNaN(numValue)) {
-                            if (numValue < 130) {
-                                new Notice(t("BASE_EASE_MIN_WARNING"));
-                                text.setValue(this.plugin.data.settings.baseEase.toString());
-                                return;
-                            }
-
                             this.plugin.data.settings.baseEase = numValue;
                             await this.plugin.savePluginData();
                         } else {
