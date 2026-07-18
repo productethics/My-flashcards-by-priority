@@ -52,6 +52,8 @@ export interface SRSettings {
     baseEase: number;
     hardEaseMultiplier: number;
     minimumEase: number;
+    linkMinEaseToRecoveryReviews: boolean;
+    recoveryReviews: number;
     linkHardToEasyReciprocal: boolean;
     goodEaseMultiplier: number;
     easyEaseMultiplier: number;
@@ -117,6 +119,8 @@ export const DEFAULT_SETTINGS: SRSettings = {
     baseEase: 1,
     hardEaseMultiplier: 0.7,
     minimumEase: 0.001,
+    linkMinEaseToRecoveryReviews: false,
+    recoveryReviews: 5,
     linkHardToEasyReciprocal: false,
     goodEaseMultiplier: 1.05,
     easyEaseMultiplier: 1.5,

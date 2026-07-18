@@ -814,34 +814,80 @@ export class SRSettingTab extends PluginSettingTab {
             });
 
         new Setting(containerEl)
-            .setName("Minimum ease")
-            .setDesc("Ease can never fall below this value, no matter how many times a card is reviewed as Hard")
-            .addText((text) =>
-                text
-                    .setValue(this.plugin.data.settings.minimumEase.toString())
-                    .onChange((value) => {
-                        applySettingsUpdate(async () => {
-                            const numValue: number = Number.parseFloat(value);
-                            if (!isNaN(numValue) && numValue > 0) {
-                                this.plugin.data.settings.minimumEase = numValue;
-                                await this.plugin.savePluginData();
-                            } else {
-                                new Notice(t("VALID_NUMBER_WARNING"));
-                            }
-                        });
-                    }),
+            .setName("Link minimum ease to recovery reviews")
+            .setDesc(
+                "When enabled, minimum ease is calculated as 1 \u00f7 (easy multiplier ^ N), where N is the number of Easy reviews needed to bring ease back up to 1",
             )
-            .addExtraButton((button) => {
-                button
-                    .setIcon("reset")
-                    .setTooltip(t("RESET_DEFAULT"))
-                    .onClick(async () => {
-                        this.plugin.data.settings.minimumEase = DEFAULT_SETTINGS.minimumEase;
+            .addToggle((toggle) =>
+                toggle
+                    .setValue(this.plugin.data.settings.linkMinEaseToRecoveryReviews)
+                    .onChange(async (value) => {
+                        this.plugin.data.settings.linkMinEaseToRecoveryReviews = value;
                         await this.plugin.savePluginData();
-
                         this.display();
-                    });
-            });
+                    }),
+            );
+
+        if (this.plugin.data.settings.linkMinEaseToRecoveryReviews) {
+            new Setting(containerEl)
+                .setName("Easy reviews to recover")
+                .setDesc("Number of Easy reviews needed to bring ease from minimum back up to 1")
+                .addText((text) =>
+                    text
+                        .setValue(this.plugin.data.settings.recoveryReviews.toString())
+                        .onChange((value) => {
+                            applySettingsUpdate(async () => {
+                                const numValue: number = Number.parseInt(value);
+                                if (!isNaN(numValue) && numValue > 0) {
+                                    this.plugin.data.settings.recoveryReviews = numValue;
+                                    await this.plugin.savePluginData();
+                                } else {
+                                    new Notice(t("VALID_NUMBER_WARNING"));
+                                }
+                            });
+                        }),
+                )
+                .addExtraButton((button) => {
+                    button
+                        .setIcon("reset")
+                        .setTooltip(t("RESET_DEFAULT"))
+                        .onClick(async () => {
+                            this.plugin.data.settings.recoveryReviews =
+                                DEFAULT_SETTINGS.recoveryReviews;
+                            await this.plugin.savePluginData();
+                            this.display();
+                        });
+                });
+        } else {
+            new Setting(containerEl)
+                .setName("Minimum ease")
+                .setDesc("Ease can never fall below this value, no matter how many times a card is reviewed as Hard")
+                .addText((text) =>
+                    text
+                        .setValue(this.plugin.data.settings.minimumEase.toString())
+                        .onChange((value) => {
+                            applySettingsUpdate(async () => {
+                                const numValue: number = Number.parseFloat(value);
+                                if (!isNaN(numValue) && numValue > 0) {
+                                    this.plugin.data.settings.minimumEase = numValue;
+                                    await this.plugin.savePluginData();
+                                } else {
+                                    new Notice(t("VALID_NUMBER_WARNING"));
+                                }
+                            });
+                        }),
+                )
+                .addExtraButton((button) => {
+                    button
+                        .setIcon("reset")
+                        .setTooltip(t("RESET_DEFAULT"))
+                        .onClick(async () => {
+                            this.plugin.data.settings.minimumEase = DEFAULT_SETTINGS.minimumEase;
+                            await this.plugin.savePluginData();
+                            this.display();
+                        });
+                });
+        }
 
         new Setting(containerEl)
             .setName("Link hard multiplier to easy multiplier")
