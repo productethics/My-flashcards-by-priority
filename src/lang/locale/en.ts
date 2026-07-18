@@ -168,7 +168,7 @@ export default {
         'For more information, check the <a href="${algoUrl}">algorithm details</a>.',
     SM2_OSR_VARIANT: "OSR's variant of SM-2",
     BASE_EASE: "Base ease",
-    BASE_EASE_DESC: "minimum = 130, preferrably approximately 250.",
+    BASE_EASE_DESC: "The starting ease value for new cards.",
     BASE_EASE_MIN_WARNING: "The base ease must be at least 130.",
     LAPSE_INTERVAL_CHANGE: "Interval change when you review a flashcard/note as hard",
     LAPSE_INTERVAL_CHANGE_DESC: "newInterval = oldInterval * intervalChange / 100.",
