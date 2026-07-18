@@ -246,8 +246,16 @@ export class CardUI {
     }
 
     private async _showNextCard(): Promise<void> {
-        if (this._currentCard != null) await this.refresh();
-        else this.backToDeck();
+        if (this._currentCard != null) {
+            await this.refresh();
+        } else if (this.settings.flashcardCardOrder === "RandomUnknownOnly") {
+            this.content.empty();
+            const msg = this.content.createEl("div");
+            msg.style.cssText = "text-align:center;padding:40px 20px;font-size:18px;opacity:0.7;";
+            msg.textContent = "No cards left to review today.";
+        } else {
+            this.backToDeck();
+        }
     }
 
     // #region -> Controls
