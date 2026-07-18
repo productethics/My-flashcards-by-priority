@@ -96,6 +96,8 @@ export class FlashcardModal extends Modal {
 
     private _showDecksList(): void {
         this._hideFlashcard();
+        // Remove any "no cards" message divs
+        this.contentEl.querySelectorAll("div[data-no-cards-msg]").forEach(el => el.remove());
         this.deckView.show();
     }
 
@@ -121,6 +123,7 @@ export class FlashcardModal extends Modal {
             this._hideFlashcard();
             this.deckView.hide();
             const msg = this.contentEl.createDiv();
+            msg.setAttribute("data-no-cards-msg", "true");
             msg.style.cssText = "text-align:center;padding:40px 20px;font-size:18px;opacity:0.7;";
             msg.textContent = "No cards left to review today.";
             this.backButton.removeClass("sr-is-hidden");
