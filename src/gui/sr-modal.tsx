@@ -118,7 +118,12 @@ export class FlashcardModal extends Modal {
             this._showFlashcard(deck);
             this.backButton.removeClass("sr-is-hidden");
         } else {
-            this._showDecksList();
+            this._hideFlashcard();
+            this.deckView.hide();
+            const msg = this.contentEl.createDiv();
+            msg.style.cssText = "text-align:center;padding:40px 20px;font-size:18px;opacity:0.7;";
+            msg.textContent = "No cards left to review today.";
+            this.backButton.removeClass("sr-is-hidden");
         }
     }
 
