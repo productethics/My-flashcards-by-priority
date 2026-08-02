@@ -90,7 +90,7 @@
         flex-direction: column;
         position: absolute;
         left: 0;
-        top: 0;
+        top: -12px;
         bottom: 0;
         padding-left: 8px;
     }
