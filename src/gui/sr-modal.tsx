@@ -152,8 +152,10 @@ export class FlashcardModal extends Modal {
     }
 
     private _createBackButton() {
-        this.backButton = this.modalEl.createDiv();
-        this.backButton.addClasses(["sr-back-button", "sr-is-hidden"]);
+        this.backButton = this.modalEl.createEl("button");
+        this.backButton.addClasses(["modal-close-button", "sr-is-hidden"]);
+        this.backButton.style.left = "12px";
+        this.backButton.style.right = "unset";
         setIcon(this.backButton, "arrow-left");
         this.backButton.setAttribute("aria-label", t("BACK"));
         this.backButton.addEventListener("click", () => {
