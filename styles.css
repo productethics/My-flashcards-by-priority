@@ -319,7 +319,7 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding-top: 16px;
+    padding-top: 4px;
 }
 
 .sr-tab-view .sr-deck-list .sr-header {
@@ -331,7 +331,7 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     font-weight: var(--font-semibold);
     text-align: left;
     line-height: var(--line-height-tight);
-    padding-left: 16px;
+    padding-left: 4px;
     margin-bottom: 32px;
 }
 
