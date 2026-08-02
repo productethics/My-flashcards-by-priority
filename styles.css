@@ -327,11 +327,12 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
 }
 
 .sr-title {
-    font-size: var(--font-ui-larger);
+    font-size: 3em;
     font-weight: var(--font-semibold);
     text-align: left;
     line-height: var(--line-height-tight);
     padding-left: 16px;
+    margin-bottom: 32px;
 }
 
 .sr-content {
