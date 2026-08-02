@@ -83,6 +83,19 @@ export class FlashcardModal extends Modal {
     }
 
     onOpen(): void {
+        // Try all possible selectors to remove close button
+        const selectors = [
+            ".modal-close-button",
+            "button.modal-close-button", 
+            "[aria-label='Close']",
+            "button[aria-label='Close']",
+        ];
+        setTimeout(() => {
+            for (const sel of selectors) {
+                this.containerEl.querySelectorAll(sel).forEach(el => el.remove());
+                this.modalEl.querySelectorAll(sel).forEach(el => el.remove());
+            }
+        }, 50);
         this._showDecksList();
     }
 
