@@ -90,9 +90,11 @@
         flex-direction: column;
         position: absolute;
         left: 0;
-        top: -40px;
+        top: 0;
         bottom: 0;
         padding-left: 8px;
+        padding-top: 0;
+        justify-content: flex-start;
     }
 
     .is-mobile:not(.is-tablet) .sr-flashcard .sr-chosen-deck-info > *,
