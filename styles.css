@@ -1027,16 +1027,23 @@ th.gridjs-th:last-child {
   transform: translateY(-50%);
 }
 /* Style SR flashcard close button to match back button */
-#sr-modal .modal-close-button {
+#sr-modal .modal-close-button,
+#sr-modal .modal-close-button:hover,
+#sr-modal .modal-close-button:active {
     background: none !important;
+    background-color: transparent !important;
     box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
     width: 26px !important;
     height: 26px !important;
+    min-width: unset !important;
+    min-height: unset !important;
     top: 12px !important;
     right: 12px !important;
     color: var(--text-muted) !important;
     border-radius: var(--radius-s) !important;
-    padding: 0 var(--size-2-2) !important;
+    padding: 0 !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -1046,6 +1053,7 @@ th.gridjs-th:last-child {
     width: 26px !important;
     height: 26px !important;
     stroke: var(--text-muted) !important;
+    fill: none !important;
 }
 /* Hide deck progress info in Spaced Repetition */
 .sr-deck-progress-info {
