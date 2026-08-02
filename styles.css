@@ -318,7 +318,8 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 16px;
 }
 
 .sr-tab-view .sr-deck-list .sr-header {
@@ -326,10 +327,11 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
 }
 
 .sr-title {
-    font-size: var(--font-ui-large);
+    font-size: var(--font-ui-larger);
     font-weight: var(--font-semibold);
-    text-align: center;
+    text-align: left;
     line-height: var(--line-height-tight);
+    padding-left: 16px;
 }
 
 .sr-content {
