@@ -327,7 +327,7 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
 }
 
 .sr-title {
-    font-size: 3em;
+    font-size: 2em;
     font-weight: var(--font-semibold);
     text-align: left;
     line-height: var(--line-height-tight);
