@@ -331,7 +331,7 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     font-weight: var(--font-semibold);
     text-align: left;
     line-height: var(--line-height-tight);
-    padding-left: 4px;
+    padding-left: 10px;
     margin-bottom: 32px;
 }
 
