@@ -83,15 +83,6 @@ export class FlashcardModal extends Modal {
     }
 
     onOpen(): void {
-        // Use MutationObserver to remove close button as soon as it appears
-        const observer = new MutationObserver(() => {
-            const closeBtn = this.modalEl.querySelector(".modal-close-button");
-            if (closeBtn) {
-                closeBtn.remove();
-                observer.disconnect();
-            }
-        });
-        observer.observe(this.modalEl, { childList: true, subtree: true });
         this._showDecksList();
     }
 
