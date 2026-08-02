@@ -1052,3 +1052,5 @@ th.gridjs-th:last-child {
 .sr-tree-stats-container {
   display: none !important;
 }
+
+#sr-modal .modal-close-button { display: none !important; }
