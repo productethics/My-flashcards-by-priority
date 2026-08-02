@@ -64,7 +64,6 @@ export class DeckUI {
         this.stats.addClass("sr-header-stats-container");
         this._createHeaderStats();
 
-        this.headerDivider = this.view.createEl("hr");
 
         this.content = this.view.createDiv();
         this.content.addClass("sr-content");
