@@ -53,6 +53,7 @@
     cursor: pointer;
     width: var(--side-button-size);
     height: var(--side-button-size);
+    border-radius: 50% !important;
 }
 
 .sr-back-button:hover,
