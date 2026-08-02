@@ -83,9 +83,11 @@ export class FlashcardModal extends Modal {
     }
 
     onOpen(): void {
-        // Remove Obsidian's built-in close button
-        const closeBtn = this.containerEl.querySelector(".modal-close-button");
-        if (closeBtn) closeBtn.remove();
+        // Remove Obsidian's built-in close button after it's been added
+        setTimeout(() => {
+            const closeBtn = this.containerEl.querySelector(".modal-close-button");
+            if (closeBtn) closeBtn.remove();
+        }, 0);
         this._showDecksList();
     }
 
