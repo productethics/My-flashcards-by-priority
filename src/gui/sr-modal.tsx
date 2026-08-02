@@ -39,10 +39,6 @@ export class FlashcardModal extends Modal {
     ) {
         super(app);
 
-        // Remove Obsidian's built-in close button
-        const closeBtn = this.modalEl.querySelector(".modal-close-button");
-        if (closeBtn) closeBtn.remove();
-
         // Init properties
         this.plugin = plugin;
         this.settings = settings;
