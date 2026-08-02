@@ -392,6 +392,7 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     justify-content: flex-start;
     align-items: center;
     padding-left: 8px;
+    margin-top: -8px;
 }
 
 .sr-flashcard .sr-info-section {
