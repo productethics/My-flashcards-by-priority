@@ -86,7 +86,6 @@ export class FlashcardModal extends Modal {
         // Remove Obsidian's built-in close button
         const closeBtn = this.containerEl.querySelector(".modal-close-button");
         if (closeBtn) closeBtn.remove();
-        this._createBackButton();
         this._showDecksList();
     }
 
@@ -121,7 +120,6 @@ export class FlashcardModal extends Modal {
         this.reviewSequencer.setCurrentDeck(deck.getTopicPath());
         if (this.reviewSequencer.hasCurrentCard) {
             this._showFlashcard(deck);
-            this.backButton.removeClass("sr-is-hidden");
         } else {
             this._hideFlashcard();
             this.deckView.hide();
@@ -129,7 +127,6 @@ export class FlashcardModal extends Modal {
             msg.setAttribute("data-no-cards-msg", "true");
             msg.style.cssText = "text-align:center;padding:40px 20px;font-size:18px;opacity:0.7;";
             msg.textContent = "No cards left to review today.";
-            this.backButton.removeClass("sr-is-hidden");
         }
     }
 
@@ -151,16 +148,5 @@ export class FlashcardModal extends Modal {
             .catch((reason) => console.log(reason));
     }
 
-    private _createBackButton() {
-        this.backButton = this.modalEl.createEl("button");
-        this.backButton.addClasses(["modal-close-button", "sr-is-hidden"]);
-        this.backButton.style.left = "12px";
-        this.backButton.style.right = "unset";
-        setIcon(this.backButton, "arrow-left");
-        this.backButton.setAttribute("aria-label", t("BACK"));
-        this.backButton.addEventListener("click", () => {
-            this.backButton.addClass("sr-is-hidden");
-            this._showDecksList();
-        });
-    }
+
 }

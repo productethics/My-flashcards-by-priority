@@ -1027,8 +1027,12 @@ th.gridjs-th:last-child {
   transform: translateY(-50%);
 }
 /* Hide SR flashcard close button — back button serves same purpose */
-/* Style SR flashcard close button to match back button */
+/* Hide SR modal close button */
 #sr-modal .modal-close-button {
+    display: none !important;
+}
+
+#sr-modal .modal-close-button-hidden {
     background: none !important;
     background-color: transparent !important;
     box-shadow: none !important;
