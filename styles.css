@@ -389,8 +389,9 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     display: flex;
     width: 100%;
     gap: var(--size-4-4);
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    padding-left: 8px;
 }
 
 .sr-flashcard .sr-info-section {
