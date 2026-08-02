@@ -51,8 +51,8 @@
 .sr-button {
     box-shadow: none !important;
     cursor: pointer;
-    width: var(--side-button-size);
-    height: var(--side-button-size);
+    width: calc(var(--side-button-size) * 1.02);
+    height: calc(var(--side-button-size) * 1.02);
     border-radius: 50% !important;
 }
 
@@ -392,7 +392,7 @@ body:not(.native-scrollbars) #sr-modal .modal-close-button {
     gap: var(--size-4-4);
     justify-content: flex-start;
     align-items: center;
-    padding-left: 8px;
+    padding-left: 2px;
     margin-top: -4px;
 }
 
