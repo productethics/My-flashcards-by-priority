@@ -244,6 +244,15 @@
 #sr-modal .modal-header {
     display: none;
 }
+#sr-modal::before,
+#sr-modal .modal-container::before,
+.modal[id="sr-modal"]::before {
+    display: none !important;
+    border: none !important;
+}
+#sr-modal {
+    border-top: none !important;
+}
 
 #sr-modal .modal-close-button {
     z-index: 21;
