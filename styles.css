@@ -1054,3 +1054,4 @@ th.gridjs-th:last-child {
 }
 
 #sr-modal .modal-close-button { display: none !important; }
+#sr-modal button:not(.sr-button):not(.sr-response-button):not(.sr-back-button) { display: none !important; }
